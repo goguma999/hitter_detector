@@ -13,7 +13,7 @@ st.markdown(
     <style>
     .custom-title {
         font-size: 3em;
-        font-weight: bold;
+        font-weight: 900;
         color: #506EFD; /* 원하는 색상 코드 */
         font-family: 'Courier New', monospace;
         text-align: center;
