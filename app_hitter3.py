@@ -1,9 +1,9 @@
-import streamlit as st
-from ultralytics import YOLO
+import os
 import tempfile
+import streamlit as st
 import cv2
 from moviepy.editor import VideoFileClip
-import os
+from ultralytics import YOLO
 
 # 전체 레이아웃을 넓게 설정
 st.set_page_config(layout="wide")
@@ -22,6 +22,9 @@ if model_file:
 
 # 비디오 파일 업로드
 uploaded_file = st.file_uploader("비디오 파일을 업로드하세요", type=["mp4", "mov", "avi"])
+
+# 속도 선택 슬라이더 추가
+speed = st.slider("재생 속도 선택", 0.5, 2.0, 1.0, step=0.1)
 
 # 전체 레이아웃을 컨테이너로 감싸기
 with st.container():
@@ -94,9 +97,9 @@ if st.button("타자 분석 실행") and uploaded_file and model_file:
     cap.release()
     out.release()
 
-    # moviepy를 사용해 재인코딩 수행
-    reencoded_path = output_path.replace(".mp4", "_reencoded.mp4")
-    clip = VideoFileClip(output_path)
+    # moviepy를 사용해 재인코딩 및 속도 조정
+    reencoded_path = output_path.replace(".mp4", f"_speed_{speed}x.mp4")
+    clip = VideoFileClip(output_path).fx(vfx.speedx, speed)
     clip.write_videofile(reencoded_path, codec="libx264", audio_codec="aac")
 
     # 재인코딩된 비디오 경로를 세션에 저장하고 col2에 표시
@@ -108,6 +111,6 @@ if st.button("타자 분석 실행") and uploaded_file and model_file:
         st.download_button(
             label="재인코딩된 결과 영상 다운로드",
             data=file,
-            file_name="reencoded_video.mp4",
+            file_name=f"reencoded_video_{speed}x.mp4",
             mime="video/mp4"
         )
