@@ -29,7 +29,6 @@ st.markdown(
 # 커스텀 타이틀 표시
 st.markdown('<p class="custom-title">Who is the hitter</p>', unsafe_allow_html=True)
 
-
 # 모델 파일 업로드
 model_file = st.file_uploader("모델 파일을 업로드하세요", type=["pt"])
 if model_file:
@@ -39,6 +38,8 @@ if model_file:
     model = YOLO(model_path)
     st.success("모델이 성공적으로 로드되었습니다.")
 
+# 비디오 파일 업로드
+    uploaded_file = st.file_uploader("비디오 파일을 업로드하세요", type=["mp4", "mov", "avi"])
 
 # 사물 검출 버튼 추가  이걸 위쪽으로 올린거 
 if st.button("타자 분석하기"):     # 사물검출 실행이라는 버튼을 추가합니다. 버튼을 누르면 
@@ -51,9 +52,6 @@ if st.button("타자 분석하기"):     # 사물검출 실행이라는 버튼�
 # 전체 레이아웃을 컨테이너로 감싸기
 with st.container():     # with절로 하나의 기능을 하는 코드를 묶어줌.(가독성 높이기) 
     col1, col2 = st.columns(2)  # 열을 균등하게 분배하여 넓게 표시.   # (3)하면 컬럼 3개 생성되는 거
-
-    # 파일 업로드
-    uploaded_file = st.file_uploader("비디오 파일을 업로드하세요", type=["mp4", "mov", "avi"])
 
     with col1:
         st.header("원본 영상")    # col1 영역의 제목
@@ -69,6 +67,7 @@ with st.container():     # with절로 하나의 기능을 하는 코드를 묶�
         if "processed_video" in st.session_state:     # 사물 검출 완료된 비디오가 있으면 
             st.video(st.session_state["processed_video"])  # 그 비디오를 플레이 해라 
         else:
+            # 검출 결과가 없을 때 회색 박스 표시 
             result_placeholder.markdown(
                 """
                 <div style='width:100%; height:350px; background-color:#d3d3d3; display:flex; align-items:center; justify-content:center; border-radius:5px;'>
@@ -127,13 +126,14 @@ if st.button("타자 분석하기") and uploaded_file and model_file:  # 버튼�
         out.write(frame)
         frame_count += 1    # 프레임수를 증가시킵니다.  
 
-cap.release()
-out.release()
+    # 비디오 객체 해제
+    cap.release()
+    out.release()
 
-# 결과 비디오를 st.session_state에 저장하여 스트림릿에 표시
-st.session_state["processed_video"] = output_path
-result_placeholder.video(output_path)    # 회색박스 부분에 비디오 플레이 
-st.success("사물 검출이 완료되어 오른쪽에 표시됩니다.")
+    # 결과 비디오를 st.session_state에 저장하여 스트림릿에 표시
+    st.session_state["processed_video"] = output_path
+    result_placeholder.video(output_path)    # 회색박스 부분에 비디오 플레이 
+    st.success("사물 검출이 완료되어 오른쪽에 표시됩니다.")
 
 
 
