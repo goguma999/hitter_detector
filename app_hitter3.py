@@ -2,7 +2,7 @@ import os
 import tempfile
 import streamlit as st
 import cv2
-from moviepy.editor import VideoFileClip
+from moviepy.editor import VideoFileClip, vfx
 from ultralytics import YOLO
 
 # 전체 레이아웃을 넓게 설정
