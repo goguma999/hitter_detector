@@ -95,10 +95,13 @@ if st.button("타자 분석 실행") and uploaded_file and model_file:
     out.release()
 
     # moviepy를 사용해 재인코딩 수행
-    st.header("재인코딩된 결과 영상")
     reencoded_path = output_path.replace(".mp4", "_reencoded.mp4")
     clip = VideoFileClip(output_path)
     clip.write_videofile(reencoded_path, codec="libx264", audio_codec="aac")
+
+    # 재인코딩된 비디오 경로를 세션에 저장하고 col2에 표시
+    st.session_state["processed_video"] = reencoded_path
+    result_placeholder.video(st.session_state["processed_video"])
 
     # 재인코딩된 비디오 다운로드 버튼 제공
     with open(reencoded_path, "rb") as file:
@@ -108,8 +111,3 @@ if st.button("타자 분석 실행") and uploaded_file and model_file:
             file_name="reencoded_video.mp4",
             mime="video/mp4"
         )
-
-
-
-
-
