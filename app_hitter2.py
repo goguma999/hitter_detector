@@ -9,7 +9,7 @@ import os
 st.set_page_config(layout="wide")
 
 # 제목
-st.title("비디오 사물 검출 및 재인코딩 앱")
+st.title("Who is the hitter")
 
 # 모델 파일 업로드
 model_file = st.file_uploader("모델 파일을 업로드하세요", type=["pt"])
@@ -29,7 +29,7 @@ if uploaded_file is not None:
     st.video(uploaded_file)
 
 # 사물 검출 실행 버튼
-if st.button("사물 검출 실행") and uploaded_file and model_file:
+if st.button("타자 분석 실행") and uploaded_file and model_file:
     # 임시 파일 경로 생성
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_output:
         output_path = temp_output.name
@@ -91,5 +91,5 @@ if st.button("사물 검출 실행") and uploaded_file and model_file:
 # 결과 영상 재생을 위해 업로드
 uploaded_result = st.file_uploader("결과 영상을 업로드하세요", type=["mp4"])
 if uploaded_result is not None:
-    st.header("사물 검출 결과 영상")
+    st.header("타자 분석석 결과 영상")
     st.video(uploaded_result)
