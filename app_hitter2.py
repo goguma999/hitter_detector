@@ -2,7 +2,6 @@ import streamlit as st
 from ultralytics import YOLO
 import tempfile
 import cv2
-from moviepy.editor import VideoFileClip
 import os
 
 # 페이지 레이아웃 설정
