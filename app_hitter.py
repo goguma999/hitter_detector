@@ -34,6 +34,33 @@ if st.button("사물 검출 실행"):     # 사물검출 실행이라는 버튼�
     else:
         st.warning("사물 검출을 실행하려면 비디오 파일을 업로드하세요.")
 
+# 버튼 스타일을 CSS로 커스터마이즈
+st.markdown(
+    """
+    <style>
+    .custom-button {
+        display: flex;
+        justify-content: center; /* 버튼을 가운데로 정렬 */
+    }
+    .stButton > button {
+        background-color: #506EFD; /* 버튼 배경색 */
+        color: white; /* 버튼 글씨 색 */
+        padding: 0.5em 1em;
+        border: none;
+        border-radius: 0.3em;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .stButton > button:hover {
+        background-color: #4050c4; /* 버튼 호버 시 색상 */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
+
 # 전체 레이아웃을 컨테이너로 감싸기
 with st.container():     # with절로 하나의 기능을 하는 코드를 묶어줌.(가독성 높이기) 
     col1, col2 = st.columns(2)  # 열을 균등하게 분배하여 넓게 표시.   # (3)하면 컬럼 3개 생성되는 거
@@ -50,10 +77,19 @@ with st.container():     # with절로 하나의 기능을 하는 코드를 묶�
 
     with col2:   
         st.header("타자 감지 결과 영상")  # col2에 해당하는 영역의 제목 
+        # 사물 검출 결과가 나타날 자리 확보 및 고정 높이 회색 박스 스타일 추가
+        result_placeholder = st.empty()
         if "processed_video" in st.session_state:     # 사물 검출 완료된 비디오가 있으면 
             st.video(st.session_state["processed_video"])  # 그 비디오를 플레이 해라 
         else:
-            st.write("여기에 사물 검출 결과가 표시됩니다.")
+            result_placeholder.markdown(
+                """
+                <div style='width:100%; height:620px; background-color:#d3d3d3; display:flex; align-items:center; justify-content:center; border-radius:5px;'>
+                    <p style='color:#888;'>여기에 사물 검출 결과가 표시됩니다.</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
 
 
