@@ -27,7 +27,7 @@ st.markdown(
 st.markdown('<p class="custom-title">Who is the hitter</p>', unsafe_allow_html=True)
 
 # 사물 검출 버튼 추가
-if st.button("사물 검출 실행"):     # 사물검출 실행이라는 버튼을 추가합니다. 버튼을 누르면 
+if st.button("타자 분석하기"):     # 사물검출 실행이라는 버튼을 추가합니다. 버튼을 누르면 
     if uploaded_file is not None:  # 업로드된 영상이 있다면 
         st.session_state["processed_video"] = uploaded_file   # 검출된 영상을 사용
         st.success("사물 검출이 완료되어 오른쪽에 표시됩니다.")  # 이 메세지 출력
@@ -71,21 +71,7 @@ with st.container():     # with절로 하나의 기능을 하는 코드를 묶�
     with col1:
         st.header("원본 영상")    # col1 영역의 제목
         if uploaded_file is not None:   # 영상이 업로드가 되었다면 
-            st.video(uploaded_file)     # 영상 플레이 해라~ 
-        else:
-            st.write("원본 영상을 표시하려면 비디오 파일을 업로드하세요.")
-
-    with col2:   
-        st.header("타자 감지 결과 영상")  # col2에 해당하는 영역의 제목 
-        # 사물 검출 결과가 나타날 자리 확보 및 고정 높이 회색 박스 스타일 추가
-        result_placeholder = st.empty()
-        if "processed_video" in st.session_state:     # 사물 검출 완료된 비디오가 있으면 
-            st.video(st.session_state["processed_video"])  # 그 비디오를 플레이 해라 
-        else:
-            result_placeholder.markdown(
-                """
-                <div style='width:100%; height:620px; background-color:#d3d3d3; display:flex; align-items:center; justify-content:center; border-radius:5px;'>
-                    <p style='color:#888;'>여기에 사물 검출 결과가 표시됩니다.</p>
+            st.video(uploaded지 결과가 표시됩니다.</p>
                 </div>
                 """,
                 unsafe_allow_html=True,
