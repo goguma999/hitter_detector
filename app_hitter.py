@@ -26,6 +26,14 @@ st.markdown(
 # 커스텀 타이틀 표시
 st.markdown('<p class="custom-title">Who is the hitter</p>', unsafe_allow_html=True)
 
+# 사물 검출 버튼 추가
+if st.button("사물 검출 실행"):     # 사물검출 실행이라는 버튼을 추가합니다. 버튼을 누르면 
+    if uploaded_file is not None:  # 업로드된 영상이 있다면 
+        st.session_state["processed_video"] = uploaded_file   # 검출된 영상을 사용
+        st.success("사물 검출이 완료되어 오른쪽에 표시됩니다.")  # 이 메세지 출력
+    else:
+        st.warning("사물 검출을 실행하려면 비디오 파일을 업로드하세요.")
+
 # 전체 레이아웃을 컨테이너로 감싸기
 with st.container():     # with절로 하나의 기능을 하는 코드를 묶어줌.(가독성 높이기) 
     col1, col2 = st.columns(2)  # 열을 균등하게 분배하여 넓게 표시.   # (3)하면 컬럼 3개 생성되는 거
@@ -47,13 +55,7 @@ with st.container():     # with절로 하나의 기능을 하는 코드를 묶�
         else:
             st.write("여기에 사물 검출 결과가 표시됩니다.")
 
-# 사물 검출 버튼 추가
-if st.button("사물 검출 실행"):     # 사물검출 실행이라는 버튼을 추가합니다. 버튼을 누르면 
-    if uploaded_file is not None:  # 업로드된 영상이 있다면 
-        st.session_state["processed_video"] = uploaded_file   # 검출된 영상을 사용
-        st.success("사물 검출이 완료되어 오른쪽에 표시됩니다.")  # 이 메세지 출력
-    else:
-        st.warning("사물 검출을 실행하려면 비디오 파일을 업로드하세요.")
+
 
 
 
