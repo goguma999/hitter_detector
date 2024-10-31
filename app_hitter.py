@@ -50,7 +50,16 @@ with st.container():     # with절로 하나의 기능을 하는 코드를 묶�
 
     with col2:   
         st.header("타자 분석 결과 영상")  # col2에 해당하는 영역의 제목 
+        # 사물 검출 결과가 나타날 자리 확보 및 고정 높이 회색 박스 스타일 추가
+        result_placeholder = st.empty()
         if "processed_video" in st.session_state:     # 사물 검출 완료된 비디오가 있으면 
             st.video(st.session_state["processed_video"])  # 그 비디오를 플레이 해라 
         else:
-            st.write("여기에 타자 분석 결과가 표시됩니다.")
+            result_placeholder.markdown(
+                """
+                <div style='width:100%; height:620px; background-color:#d3d3d3; display:flex; align-items:center; justify-content:center; border-radius:5px;'>
+                    <p style='color:#888;'>여기에 사물 검출 결과가 표시됩니다.</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
