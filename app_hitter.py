@@ -36,7 +36,6 @@ if st.button("타자 분석하기"):     # 사물검출 실행이라는 버튼�
 
 # 버튼 스타일을 CSS로 커스터마이즈
 st.markdown(
-    """
     <style>
     .custom-button {
         display: flex;
@@ -54,8 +53,7 @@ st.markdown(
     .stButton > button:hover {
         background-color: #4050c4; /* 버튼 호버 시 색상 */
     }
-    </style>
-    """,
+    </style>,
     unsafe_allow_html=True
 )
 
