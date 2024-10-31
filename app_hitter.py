@@ -56,8 +56,8 @@ with st.container():     # with절로 하나의 기능을 하는 코드를 묶�
         else:
             result_placeholder.markdown(
                 """
-                <div style='width:100%; height:620px; background-color:#d3d3d3; display:flex; align-items:center; justify-content:center; border-radius:5px;'>
-                    <p style='color:#888;'>여기에 타자 분 결과가 표시됩니다.</p>
+                <div style='width:100%; height:420px; background-color:#d3d3d3; display:flex; align-items:center; justify-content:center; border-radius:5px;'>
+                    <p style='color:#888;'>여기에 타자 분석 결과가 표시됩니다.</p>
                 </div>
                 """,
                 unsafe_allow_html=True,
