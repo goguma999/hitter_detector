@@ -2,6 +2,7 @@ import streamlit as st
 from ultralytics import YOLO
 import tempfile
 import cv2
+from moviepy.editor import VideoFileClip
 import os
 
 # 페이지 레이아웃 설정
@@ -92,5 +93,3 @@ uploaded_result = st.file_uploader("결과 영상을 업로드하세요", type=[
 if uploaded_result is not None:
     st.header("사물 검출 결과 영상")
     st.video(uploaded_result)
-
-
