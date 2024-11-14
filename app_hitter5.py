@@ -74,9 +74,7 @@ with st.container():
             )
 
 # 페이지 하단에 결과 정보 미리 표시
-st.write("### 분석 결과: ")
-result_text_placeholder = st.empty()
-result_text_placeholder.write("결과: 영상 속 타자는 **_______** 입니다.")
+st.write("### 분석 결과: 결과: 영상 속 타자는 **_______** 입니다.")
 
 # "타자 분석 실행" 버튼이 클릭되었을 때 비디오 분석 시작
 if run_analysis and uploaded_file:
@@ -155,7 +153,5 @@ if run_analysis and uploaded_file:
         )
 
     # 분석 결과 표시
-    if frequent_detection:
-        result_text_placeholder.write(f"결과: 영상 속 타자는 **{frequent_detection}** 입니다.")
-    else:
-        result_text_placeholder.write("결과: 영상 속 타자는 **없음** 입니다.")
+    result_text = f"결과: 영상 속 타자는 **{frequent_detection if frequent_detection else '없음'}** 입니다."
+    st.write("### 분석 결과: " + result_text)
