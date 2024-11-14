@@ -144,8 +144,8 @@ if run_analysis and uploaded_file:
     cap.release()
     out.release()
 
-    # 가장 많이 검출된 인물
-    most_frequent_class = max(detection_counts, key=detection_counts.get, default="None")
+    # 가장 많이 검출된 인물을 한글 이름으로 변환
+    translated_detection = name_mapping.get(frequent_detection, "없음")
 
     # moviepy를 사용해 재인코딩 및 속도 조정
     reencoded_path = output_path.replace(".mp4", f"_speed_{speed}x.mp4")
@@ -157,13 +157,13 @@ if run_analysis and uploaded_file:
     result_placeholder.video(st.session_state["processed_video"])
 
     # 분석 결과 업데이트
-    result_text = f"### 분석 결과: 영상 속 타자는 **{frequent_detection if frequent_detection else '없음'}** 입니다."
+    result_text = f"### 분석 결과: 영상 속 타자는 **{translated_detection}** 입니다."
     result_text_placeholder.write(result_text)
 
     # 결과 영상 다운로드 버튼 표시
     with open(reencoded_path, "rb") as file:
         st.download_button(
-            label="재인코딩된 결과 영상 다운로드",
+            label="결과 영상 다운로드", 
             data=file,
             file_name=f"reencoded_video_{speed}x.mp4",
             mime="video/mp4"
