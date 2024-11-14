@@ -14,7 +14,7 @@ st.set_page_config(layout="wide")
 st.title("Who is the hitter")
 
 # GitHub에 업로드된 모델 경로
-MODEL_URL = "https://github.com/yourusername/yourrepository/raw/main/6_trained_model.pt"
+MODEL_URL = "https://github.com/goguma999/ourteam/blob/main/6_trained_model.pt"
 model_path = "6_trained_model.pt"
 
 # 모델 파일이 없을 경우 다운로드
