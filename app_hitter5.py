@@ -11,7 +11,7 @@ import urllib.request
 st.set_page_config(layout="wide")
 
 # 제목
-st.title("Who is the hitter")
+st.title("⚾ Who is the batter ⚾")
 
 # GitHub에 업로드된 모델 경로
 MODEL_URL = "https://github.com/yourusername/yourrepository/raw/main/6_trained_model.pt"
@@ -25,22 +25,22 @@ if not os.path.exists(model_path):
 
 # YOLO 모델 로드
 model = YOLO(model_path)
-st.success("모델이 성공적으로 로드되었습니다.")
+#st.success("모델이 성공적으로 로드되었습니다.")
 
 # 모델 파일 다운로드 버튼
-with open(model_path, "rb") as model_file:
-    st.download_button(
-        label="모델 파일 다운로드",
-        data=model_file,
-        file_name="6_trained_model.pt",
-        mime="application/octet-stream"
-    )
+# with open(model_path, "rb") as model_file:
+#     st.download_button(
+#         label="모델 파일 다운로드",
+#         data=model_file,
+#         file_name="6_trained_model.pt",
+#         mime="application/octet-stream"
+#     )
 
 # 비디오 파일 업로드
 uploaded_file = st.file_uploader("비디오 파일을 업로드하세요", type=["mp4", "mov", "avi"])
 
 # 속도 선택 슬라이더 추가
-speed = st.slider("재생 속도 선택", 0.5, 2.0, 1.0, step=0.1)
+speed = st.slider("재생 속도 선택", 0.5, 2.0, 1.0, step=0.25)
 
 # 전체 레이아웃을 컨테이너로 감싸기
 with st.container():
