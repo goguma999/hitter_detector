@@ -185,7 +185,7 @@ if run_analysis and uploaded_file:
 
 
 # 선수 정보 챗봇 기능
-st.write("\n" * 2)  # 간격 추가
+st.write("\n" * 3)  # 간격 추가
 st.header("🤖선수 정보 검색🤖")
 
 # 선수 이름을 입력받고 정보를 제공
@@ -194,17 +194,47 @@ search_button = st.button("검색")
 
 # 선수 정보를 저장한 딕셔너리
 player_info = {
-    "이용규": "1985년생, 좌타자, KBO 리그 활약",
-    "서건창": "1989년생, 좌타자, 타이틀 보유",
-    "이대형": "1983년생, 우타자, 뛰어난 주력",
-    "박병호": "1986년생, 우타자, 홈런왕 출신 강타자",
-    "노시환": "1999년생, 우타자, KBO 리그 신예",
-    "권희동": "1990년생, 우타자, 강한 수비력"
+    "yongkyu": ["이용규", "용규", "yongkyu", "Yongkyu"],
+    "geonchang": ["서건창", "건창", "geonchang", "Geonchang"],
+    "heedong": ["권희동", "희동", "heedong", "Heedong"],
+    "daehyung": ["이대형", "대형", "daehyung", "Daehyung"],
+    "byungho": ["박병호", "병호", "byungho", "Byungho"],
+    "sihwan": ["노시환", "시환", "sihwan", "Sihwan"]
+}
+
+# 선수별 상세 정보를 저장한 딕셔너리
+player_info_details = {
+    "yongkyu": "이용규: 1985년생, 좌타자, KBO 리그 활약",
+    "geonchang": "서건창: 1989년생, 내야수, 타이틀 보유",
+    "heedong": "권희동: 1990년생, 강한 수비력",
+    "daehyung": "이대형: 1987년생, 뛰어난 주력",
+    "byungho": "박병호: 홈런왕 출신 강타자",
+    "sihwan": "노시환: 홈런왕 출신 강타자"
 }
 
 # 검색 버튼이 눌렸을 때 선수 정보 표시
 if search_button:
-    if player_name in player_info:
-        st.write(f"{player_name}: {player_info[player_name]}")
+    # 입력한 이름을 모든 선수의 별명 리스트에서 찾기
+    found_player = None
+    for key, aliases in player_info.items():
+        if player_name in aliases:
+            found_player = key
+            break
+
+    # 결과 출력
+    if found_player:
+        st.markdown(
+            f"<div style='background-color:#e6f7ff; padding:10px; border-radius:5px; font-weight:bold;'>"
+            f"{player_info_details[found_player]}"
+            f"</div>",
+            unsafe_allow_html=True
+        )
     else:
-        st.write("해당 선수의 정보가 없습니다.")
+        st.markdown(
+            "<div style='color:red; font-weight:bold;'>해당 선수의 정보가 없습니다.</div>",
+            unsafe_allow_html=True
+        )
+
+
+
+
