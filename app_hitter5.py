@@ -29,14 +29,17 @@ model = YOLO(model_path)
 # 비디오 파일 업로드
 uploaded_file = st.file_uploader("비디오 파일을 업로드하세요", type=["mp4", "mov", "avi"])
 
-# 속도 선택 슬라이더와 "타자 분석 실행" 버튼을 나란히 배치하여 중앙에 정렬
+# 속도 선택 슬라이더와 "타자 분석 실행" 버튼을 나란히 배치하여 버튼을 오른쪽에 정렬
 col_speed, col_button = st.columns([3, 1])
 
 with col_speed:
     speed = st.slider("재생 속도 선택", 0.25, 1.0, 1.0, step=0.25)
 
 with col_button:
-    st.markdown("<div style='display: flex; align-items: center; justify-content: center; height: 100%;'>", unsafe_allow_html=True)
+    st.markdown(
+        "<div style='display: flex; align-items: flex-end; justify-content: flex-end; height: 100%;'>",
+        unsafe_allow_html=True
+    )
     run_analysis = st.button("타자 분석 실행")
     st.markdown("</div>", unsafe_allow_html=True)
 
