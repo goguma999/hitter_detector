@@ -25,22 +25,12 @@ if not os.path.exists(model_path):
 
 # YOLO 모델 로드
 model = YOLO(model_path)
-#st.success("모델이 성공적으로 로드되었습니다.")
-
-# 모델 파일 다운로드 버튼
-# with open(model_path, "rb") as model_file:
-#     st.download_button(
-#         label="모델 파일 다운로드",
-#         data=model_file,
-#         file_name="6_trained_model.pt",
-#         mime="application/octet-stream"
-#     )
 
 # 비디오 파일 업로드
 uploaded_file = st.file_uploader("비디오 파일을 업로드하세요", type=["mp4", "mov", "avi"])
 
 # 속도 선택 슬라이더 추가
-speed = st.slider("재생 속도 선택", 0.5, 2.0, 1.0, step=0.25)
+speed = st.slider("재생 속도 선택", 0.25, 1.0, 1.0, step=0.25)
 
 # 전체 레이아웃을 컨테이너로 감싸기
 with st.container():
@@ -51,7 +41,14 @@ with st.container():
         if uploaded_file is not None:
             st.video(uploaded_file)
         else:
-            st.write("원본 영상을 표시하려면 비디오 파일을 업로드하세요.")
+            st.markdown(
+                """
+                <div style='width:100%; height:300px; background-color:#d3d3d3; display:flex; align-items:center; justify-content:center; border-radius:5px;'>
+                    <p style='color:#888;'>원본 영상이 여기에 표시됩니다.</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
     with col2:
         st.header("타자 분석 결과 영상")
@@ -61,12 +58,20 @@ with st.container():
         else:
             result_placeholder.markdown(
                 """
-                <div style='width:100%; height:620px; background-color:#d3d3d3; display:flex; align-items:center; justify-content:center; border-radius:5px;'>
+                <div style='width:100%; height:300px; background-color:#d3d3d3; display:flex; align-items:center; justify-content:center; border-radius:5px;'>
                     <p style='color:#888;'>여기에 타자 분석 결과가 표시됩니다.</p>
                 </div>
                 """,
                 unsafe_allow_html=True,
             )
+
+# 페이지 하단에 결과 정보 미리 표시
+st.write("### 결과 정보")
+most_frequent_class_placeholder = st.empty()
+frequent_detection_placeholder = st.empty()
+
+most_frequent_class_placeholder.write("1) 영상 속 타자는 **_______** 입니다.")
+frequent_detection_placeholder.write("2) 가장 먼저 50프레임 도달한 인물: **_______**")
 
 # 사물 검출 실행 버튼
 if st.button("타자 분석 실행") and uploaded_file:
@@ -145,9 +150,8 @@ if st.button("타자 분석 실행") and uploaded_file:
         )
 
     # 페이지 하단에 가장 많이 검출된 인물과 50프레임 도달한 인물 표시
-    st.write("### 결과 정보")
-    st.write(f"1) 가장 많이 검출된 인물: **{most_frequent_class}**")
+    most_frequent_class_placeholder.write(f"1) 영상 속 타자는 **{most_frequent_class}** 입니다.")
     if frequent_detection:
-        st.write(f"2) 가장 먼저 50프레임 도달한 인물: **{frequent_detection}**")
+        frequent_detection_placeholder.write(f"2) 가장 먼저 50프레임 도달한 인물: **{frequent_detection}**")
     else:
-        st.write("2) 50프레임 도달한 인물: **없음**")
+        frequent_detection_placeholder.write("2) 가장 먼저 50프레임 도달한 인물: **없음**")
