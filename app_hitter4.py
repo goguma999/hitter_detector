@@ -5,6 +5,7 @@ import cv2
 from moviepy.editor import VideoFileClip, vfx
 from ultralytics import YOLO
 from collections import defaultdict
+import urllib.request
 
 # 전체 레이아웃을 넓게 설정
 st.set_page_config(layout="wide")
@@ -12,14 +13,28 @@ st.set_page_config(layout="wide")
 # 제목
 st.title("Who is the hitter")
 
-# 모델 파일 업로드
-model_file = st.file_uploader("모델 파일을 업로드하세요", type=["pt"])
-if model_file:
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".pt") as temp_model_file:
-        temp_model_file.write(model_file.read())
-        model_path = temp_model_file.name
-    model = YOLO(model_path)
-    st.success("모델이 성공적으로 로드되었습니다.")
+# GitHub에 업로드된 모델 경로
+MODEL_URL = "https://github.com/yourusername/yourrepository/raw/main/6_trained_model.pt"
+model_path = "6_trained_model.pt"
+
+# 모델 파일이 없을 경우 다운로드
+if not os.path.exists(model_path):
+    st.info("모델 파일을 다운로드 중입니다...")
+    urllib.request.urlretrieve(MODEL_URL, model_path)
+    st.success("모델 다운로드 완료!")
+
+# YOLO 모델 로드
+model = YOLO(model_path)
+st.success("모델이 성공적으로 로드되었습니다.")
+
+# 모델 파일 다운로드 버튼
+with open(model_path, "rb") as model_file:
+    st.download_button(
+        label="모델 파일 다운로드",
+        data=model_file,
+        file_name="6_trained_model.pt",
+        mime="application/octet-stream"
+    )
 
 # 비디오 파일 업로드
 uploaded_file = st.file_uploader("비디오 파일을 업로드하세요", type=["mp4", "mov", "avi"])
@@ -54,7 +69,7 @@ with st.container():
             )
 
 # 사물 검출 실행 버튼
-if st.button("타자 분석 실행") and uploaded_file and model_file:
+if st.button("타자 분석 실행") and uploaded_file:
     # 임시 파일 경로 생성
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_output:
         output_path = temp_output.name
