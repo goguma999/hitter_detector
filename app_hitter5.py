@@ -84,7 +84,7 @@ with st.container():
 st.write("\n" * 2)
 
 # 분석 결과 텍스트와 다운로드 버튼을 나란히 배치
-result_col, button_col = st.columns([3, 1])
+result_col, button_col = st.columns([2, 1])
 
 with result_col:
     result_text_placeholder = st.empty()
@@ -182,3 +182,29 @@ if run_analysis and uploaded_file:
             file_name=f"reencoded_video_{speed}x.mp4",
             mime="video/mp4"
         )
+
+
+# 선수 정보 챗봇 기능
+st.write("\n" * 2)  # 간격 추가
+st.header("🤖선수 정보 검색🤖")
+
+# 선수 이름을 입력받고 정보를 제공
+player_name = st.text_input("궁금한 선수의 이름을 입력하세요:")
+search_button = st.button("검색")
+
+# 선수 정보를 저장한 딕셔너리
+player_info = {
+    "이용규": "1985년생, 좌타자, KBO 리그 활약",
+    "서건창": "1989년생, 좌타자, 타이틀 보유",
+    "이대형": "1983년생, 우타자, 뛰어난 주력",
+    "박병호": "1986년생, 우타자, 홈런왕 출신 강타자",
+    "노시환": "1999년생, 우타자, KBO 리그 신예",
+    "권희동": "1990년생, 우타자, 강한 수비력"
+}
+
+# 검색 버튼이 눌렸을 때 선수 정보 표시
+if search_button:
+    if player_name in player_info:
+        st.write(f"{player_name}: {player_info[player_name]}")
+    else:
+        st.write("해당 선수의 정보가 없습니다.")
