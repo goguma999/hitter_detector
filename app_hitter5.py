@@ -104,6 +104,15 @@ if run_analysis and uploaded_file:
     frequent_detection = None
     confidence_threshold = 0.65
 
+    # frequent_detection 이름을 한글 이름으로 매핑
+    name_mapping = {
+        "yongkyu": "이용규",
+        "geonchang": "서건창",
+        "daehyung": "이대형",
+        "byungho": "박병호",
+        "sihwan": "노시환"
+    }
+
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
