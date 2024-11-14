@@ -29,8 +29,14 @@ model = YOLO(model_path)
 # 비디오 파일 업로드
 uploaded_file = st.file_uploader("비디오 파일을 업로드하세요", type=["mp4", "mov", "avi"])
 
-# 속도 선택 슬라이더 추가
-speed = st.slider("재생 속도 선택", 0.25, 1.0, 1.0, step=0.25)
+# 속도 선택 슬라이더와 "타자 분석 실행" 버튼을 나란히 배치
+col_speed, col_button = st.columns([3, 1])
+
+with col_speed:
+    speed = st.slider("재생 속도 선택", 0.25, 1.0, 1.0, step=0.25)
+
+with col_button:
+    run_analysis = st.button("타자 분석 실행")
 
 # 전체 레이아웃을 컨테이너로 감싸기
 with st.container():
@@ -66,15 +72,15 @@ with st.container():
             )
 
 # 페이지 하단에 결과 정보 미리 표시
-st.write("### 결과 정보")
+st.write("### 분석 결과: ")
 most_frequent_class_placeholder = st.empty()
 frequent_detection_placeholder = st.empty()
 
 most_frequent_class_placeholder.write("1) 영상 속 타자는 **_______** 입니다.")
-frequent_detection_placeholder.write("2) 가장 먼저 50프레임 도달한 인물: **_______**")
+# frequent_detection_placeholder.write("2) 가장 먼저 50프레임 도달한 인물: **_______**")
 
-# 사물 검출 실행 버튼
-if st.button("타자 분석 실행") and uploaded_file:
+# "타자 분석 실행" 버튼이 클릭되었을 때 비디오 분석 시작
+if run_analysis and uploaded_file:
     # 임시 파일 경로 생성
     with tempfile.NamedTemporaryFile(delete=False, suffix=".mp4") as temp_output:
         output_path = temp_output.name
