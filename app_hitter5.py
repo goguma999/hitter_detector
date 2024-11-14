@@ -29,6 +29,10 @@ model = YOLO(model_path)
 # 비디오 파일 업로드
 uploaded_file = st.file_uploader("비디오 파일을 업로드하세요", type=["mp4", "mov", "avi"])
 
+# 다른 영상이 업로드될 때 결과 리셋
+if uploaded_file:
+    st.session_state["processed_video"] = None
+
 # 속도 선택 슬라이더와 "타자 분석 실행" 버튼을 나란히 배치하여 버튼을 오른쪽에 정렬
 col_speed, col_button = st.columns([3, 1])
 
