@@ -36,7 +36,9 @@ with col_speed:
     speed = st.slider("재생 속도 선택", 0.25, 1.0, 1.0, step=0.25)
 
 with col_button:
+    st.markdown("<div style='display: flex; align-items: center; justify-content: center; height: 100%;'>", unsafe_allow_html=True)
     run_analysis = st.button("타자 분석 실행")
+    st.markdown("</div>", unsafe_allow_html=True) 
 
 # 전체 레이아웃을 컨테이너로 감싸기
 with st.container():
