@@ -75,11 +75,8 @@ with st.container():
 
 # 페이지 하단에 결과 정보 미리 표시
 st.write("### 분석 결과: ")
-most_frequent_class_placeholder = st.empty()
-frequent_detection_placeholder = st.empty()
-
-most_frequent_class_placeholder.write("1) 영상 속 타자는 **_______** 입니다.")
-# frequent_detection_placeholder.write("2) 가장 먼저 50프레임 도달한 인물: **_______**")
+result_text_placeholder = st.empty()
+result_text_placeholder.write("결과: 영상 속 타자는 **_______** 입니다.")
 
 # "타자 분석 실행" 버튼이 클릭되었을 때 비디오 분석 시작
 if run_analysis and uploaded_file:
@@ -157,9 +154,8 @@ if run_analysis and uploaded_file:
             mime="video/mp4"
         )
 
-    # 페이지 하단에 가장 많이 검출된 인물과 50프레임 도달한 인물 표시
-    most_frequent_class_placeholder.write(f"1) 영상 속 타자는 **{most_frequent_class}** 입니다.")
+    # 분석 결과 표시
     if frequent_detection:
-        frequent_detection_placeholder.write(f"2) 가장 먼저 50프레임 도달한 인물: **{frequent_detection}**")
+        result_text_placeholder.write(f"결과: 영상 속 타자는 **{frequent_detection}** 입니다.")
     else:
-        frequent_detection_placeholder.write("2) 가장 먼저 50프레임 도달한 인물: **없음**")
+        result_text_placeholder.write("결과: 영상 속 타자는 **없음** 입니다.")
