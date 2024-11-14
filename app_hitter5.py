@@ -83,9 +83,15 @@ with st.container():
 # 영상과 분석 결과 사이의 간격을 넓히기
 st.write("\n" * 2)
 
-# 페이지 하단에 결과 정보 미리 표시
-result_text_placeholder = st.empty()
-result_text_placeholder.write("### 분석 결과: 영상 속 타자는 **_______** 입니다.")
+# 분석 결과 텍스트와 다운로드 버튼을 나란히 배치
+result_col, button_col = st.columns([3, 1])
+
+with result_col:
+    result_text_placeholder = st.empty()
+    result_text_placeholder.write("### 분석 결과: 영상 속 타자는 **_______** 입니다.")
+
+with button_col:
+    download_button_placeholder = st.empty()
 
 # "타자 분석 실행" 버튼이 클릭되었을 때 비디오 분석 시작
 if run_analysis and uploaded_file:
@@ -117,7 +123,8 @@ if run_analysis and uploaded_file:
         "geonchang": "서건창",
         "daehyung": "이대형",
         "byungho": "박병호",
-        "sihwan": "노시환"
+        "sihwan": "노시환",
+        "heedong": "권희동"
     }
 
     while cap.isOpened():
@@ -169,7 +176,7 @@ if run_analysis and uploaded_file:
 
     # 결과 영상 다운로드 버튼 표시
     with open(reencoded_path, "rb") as file:
-        st.download_button(
+        download_button_placeholder.download_button(
             label="결과 영상 다운로드", 
             data=file,
             file_name=f"reencoded_video_{speed}x.mp4",
