@@ -73,8 +73,12 @@ with st.container():
                 unsafe_allow_html=True,
             )
 
+# 영상과 분석 결과 사이의 간격을 넓히기
+st.write("\n" * 2)
+
 # 페이지 하단에 결과 정보 미리 표시
-st.write("### 분석 결과: 영상 속 타자는 **_______** 입니다.")
+result_text_placeholder = st.empty()
+result_text_placeholder.write("### 분석 결과: 영상 속 타자는 **_______** 입니다.")
 
 # "타자 분석 실행" 버튼이 클릭되었을 때 비디오 분석 시작
 if run_analysis and uploaded_file:
@@ -143,15 +147,15 @@ if run_analysis and uploaded_file:
     st.session_state["processed_video"] = reencoded_path
     result_placeholder.video(st.session_state["processed_video"])
 
-    # 재인코딩된 비디오 다운로드 버튼 제공
+    # 분석 결과 업데이트
+    result_text = f"### 분석 결과: 영상 속 타자는 **{frequent_detection if frequent_detection else '없음'}** 입니다."
+    result_text_placeholder.write(result_text)
+
+    # 결과 영상 다운로드 버튼 표시
     with open(reencoded_path, "rb") as file:
         st.download_button(
-            label="결과 영상 다운로드",
+            label="재인코딩된 결과 영상 다운로드",
             data=file,
             file_name=f"reencoded_video_{speed}x.mp4",
             mime="video/mp4"
         )
-
-    # 분석 결과 표시
-    result_text = f"영상 속 타자는 **{frequent_detection if frequent_detection else '없음'}** 입니다."
-    st.write("### 분석 결과: " + result_text)
