@@ -1,1 +1,1 @@
-# ourteam
+# hitter_detector project
