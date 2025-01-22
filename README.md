@@ -12,11 +12,10 @@
 <img src="hitterdetector2.png" alt="hitterdetector" width="600"/> 
 &nbsp;
 
-🔗 [시연영상 바로가기]
-(https://drive.google.com/file/d/1oJTGiMj7vuNWRfHrawdpsQt-9eZMcTBw/view?usp=sharing)  
+🔗 [시연영상 바로가기](https://drive.google.com/file/d/1oJTGiMj7vuNWRfHrawdpsQt-9eZMcTBw/view?usp=sharing)
+
 
 🔗 [PPT 바로가기](https://github.com/goguma999/hitter_detector/blob/main/%E1%84%90%E1%85%A1%E1%84%8C%E1%85%A1%E1%84%85%E1%85%B3%E1%86%AF%E1%84%8E%E1%85%A1%E1%86%BD%E1%84%8B%E1%85%A1%E1%84%85%E1%85%A1withYOLO.pdf)
 
 
 &nbsp;
-
